@@ -38,6 +38,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="mcc-list">
+            {groups.map((g) => (
+              <details key={g.category}>
+                <summary>
+                  <span>{g.category}</span>
+                  <span className="count">{g.codes.length} mã</span>
+                </summary>
+                <p className="codes">{[...g.codes].sort().join(" · ")}</p>
+              </details>
+            ))}
+          </div>
           <a className="btn" href="#card">Xem quyền lợi thẻ ↓</a>
         </main>
         <div className="shapes" aria-hidden="true">
