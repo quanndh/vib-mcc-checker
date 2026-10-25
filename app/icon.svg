@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#fffdf5"/>
+  <g transform="rotate(-8 256 256)">
+    <rect x="86" y="160" width="358" height="226" rx="26" fill="#252b3a"/>
+    <rect x="70" y="146" width="358" height="226" rx="26" fill="#121212" stroke="#252b3a" stroke-width="8"/>
+    <rect x="102" y="180" width="58" height="44" rx="8" fill="#c9a24a"/>
+    <line x1="102" y1="300" x2="396" y2="300" stroke="#c9a24a" stroke-width="3" opacity=".7"/>
+    <text x="102" y="278" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="34" fill="#e6c66e">VIB One</text>
+    <text x="396" y="344" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="#d4af37">SIGNATURE</text>
+  </g>
+</svg>
