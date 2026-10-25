@@ -18,8 +18,7 @@ export default function Home() {
     <section className="snap hero">
       <div className="wrap hero-grid">
         <main>
-          <p className="label">VIB One Card · MCC</p>
-          <h1>MCC Hoàn tiền</h1>
+          <h1 className="sr-only">MCC Hoàn tiền · VIB One Card</h1>
           <label htmlFor="mcc" className="label">Mã MCC</label>
           <input
             id="mcc"
