@@ -22,12 +22,12 @@ export default function Home() {
           <label htmlFor="mcc" className="label">Mã MCC</label>
           <input
             id="mcc"
-            inputMode="numeric"
+            inputMode="decimal"
             placeholder="5311 7011 6300"
             value={value}
             autoFocus
             autoComplete="off"
-            onChange={(e) => setValue(e.target.value.replace(/[^\d ]/g, "").replace(/ {2,}/g, " ").replace(/(\d{4})(?=\d)/g, "$1 "))}
+            onChange={(e) => setValue(e.target.value.replace(/[.,\-]/g, " ").replace(/[^\d ]/g, "").replace(/ {2,}/g, " ").replace(/(\d{4})(?=\d)/g, "$1 "))}
           />
           <div className="result-slot" aria-live="polite">
             {results.map((result) => (
