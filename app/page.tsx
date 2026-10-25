@@ -128,7 +128,7 @@ export default function Home() {
             <p className="fname">Quan Nguyen</p>
             <p className="foot-note">Công cụ cá nhân · không liên kết với VIB</p>
           </div>
-          <a href="https://github.com/quanndh" target="_blank" rel="noreferrer">GitHub @quanndh</a>
+          <a href="https://github.com/QuanndhZS" target="_blank" rel="noreferrer">GitHub @QuanndhZS</a>
         </footer>
       </div>
     </section>
