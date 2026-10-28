@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Host_Grotesk, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import SwRegister from "./sw-register";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Host_Grotesk({ subsets: ["latin", "latin-ext"], weight: ["700", "800"], variable: "--font-display" });
 const reading = Instrument_Sans({ subsets: ["latin", "latin-ext"], variable: "--font-reading" });
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <SwRegister />
+        <Analytics />
       </body>
     </html>
   );
