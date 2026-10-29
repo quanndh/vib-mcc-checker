@@ -1,0 +1,112 @@
+// Source: vib.com.vn (collected 2026-10-29). Only offers that apply to VIB One Card (Visa credit).
+const VIB = "https://www.vib.com.vn";
+const WCM = `${VIB}/wps/wcm/connect/`;
+const BANNER = `${VIB}/banners/Promotion/`;
+
+type F = [slug: string, title: string, period: string, audience: string, image: string];
+const featuredRows: F[] = [
+  ["uu-dai-the-one-card-dat-ve-may-bay-voi-nhieu-dac-quyen", "Ưu đãi thẻ One Card - Đặt vé máy bay với nhiều đặc quyền", "01/08/2026 - 31/10/2026", "Thẻ tín dụng VIB One Card", "fb5af7b5-6f2a-406d-8e23-0512ba96a124/One+Card+-+Du+li%CC%A3ch+%281%29.png"],
+  ["uu-dai-the-one-card-giam-300000-vnd-tai-chuoi-nha-hang-golden-gate", "Ưu đãi thẻ One Card - Giảm 300.000 VNĐ tại chuỗi nhà hàng Golden Gate", "07/08/2026 - 30/11/2026", "Thẻ tín dụng VIB One Card", "42d459aa-8c74-4cca-ad23-cd795154c6d3/VIB+One+Card_website+1.jpg"],
+  ["dac-quyen-ra-mat-danh-rieng-khach-hang-mo-the-tin-dung-vib-one-card", "Đặc quyền ra mắt dành riêng khách hàng mở thẻ tín dụng VIB One Card", "05/08/2026 - 30/10/2026", "Khách hàng mở mới VIB One Card", "05c79688-1d52-40ff-a2cd-3ee2801abdd3/Uu+dai+One+Card_Banner+website.jpg"],
+  ["chi-tieu-the-tin-dung-vib-nhan-hoan-tien-den-2500000-vnd", "Chi tiêu thẻ tín dụng VIB, nhận hoàn tiền đến 2.500.000 VNĐ", "04/08/2026 - 31/12/2026", "Chủ thẻ One Card, Max Card nhận được thư mời", "f98b285d-e0fc-4ee9-8113-c2ad51fb03fb/Banner+Website+-+Hoa%CC%80n+2.500.000+%C4%91+1+%281%29.jpg"],
+  ["giao-dich-quoc-te-0-phi-voi-the-vib", "Giao dịch quốc tế 0% phí với thẻ VIB", "Đến 31/12/2026", "Chủ thẻ One Card, Max Card", "4ca846ca-3f09-4021-8db5-caf175e66fda/banner-oversea_V3.jpg"],
+  ["tang-blind-box-the-masked-singer-vib-ban-gioi-han-khi-mo-the-tin-dung", "Tặng Blind Box The Masked Singer x VIB khi mở mới thẻ tín dụng VIB", "Đến 30/11/2026", "Mở mới One Card hoặc Max Card", "efcac90c-c652-4a99-827f-96ed45de5e92/TMS_Website+Banner.jpg"],
+  ["mien-phi-thuong-nien-hoan-phi-hoi-vien-khi-mo-moi-the-tin-dung-vib-q4-2026", "Miễn phí thường niên, hoàn phí hội viên khi mở mới thẻ tín dụng VIB", "Đến 31/12/2026", "Chủ thẻ tín dụng VIB", "3111d8a1-ac21-4cca-aefb-f48b7227041a/ACQ+Q4_banner+credit_VN.JPG"],
+  ["mien-phi-thuong-nien-nam-tiep-theo-danh-cho-the-tin-dung-vib", "Miễn phí thường niên năm tiếp theo dành cho thẻ tín dụng VIB", "01/01/2025 - 31/12/2027", "Thẻ tín dụng hiện hữu (trừ Financial Free, Ivy, Business, Max Card)", "bf5caee0-d408-4daf-87b5-95d055878ed7/MPTN+-+Banner+Website+TV+1+%281%29.jpg"],
+  ["tang-goi-vtvgo-mien-phi-khi-mo-moi-the-tin-dung-hoac-the-thanh-toan", "Tặng gói VTVgo Plus miễn phí khi mở mới thẻ", "01/09/2026 - 31/12/2026", "Mở mới Family Link, Max Card, One Card", "941223b6-7242-42ab-92f9-23a419c72bc0/image+26.jpg"],
+  ["giam-den-2-trieu-dong-khi-mua-iphone-18-series-bang-the-tin-dung-vib", "Giảm đến 2 triệu đồng khi mua iPhone 18 series bằng thẻ tín dụng VIB", "Đến 31/12/2026", "Chủ thẻ tín dụng VIB", "e30abda0-0a51-4cbe-9fb5-2d75250a1659/iphone+18+duo_website.jpg"],
+  ["giam-20-phan-tram-khi-mua-sam-tren-shopee-2026-bang-the-tin-dung-vib", "Giảm 20% khi mua sắm trên Shopee bằng thẻ tín dụng VIB", "06/04/2026 - 31/12/2026", "Chủ thẻ tín dụng VIB", "3bfe6f1a-de91-414d-83fb-cc01613da9c0/MaxCard_Shopee+banner+web+1+%281%29+%281%29.jpg"],
+  ["giam-50000-vnd-tren-shopeefood-cho-the-tin-dung-vib", "Giảm 50.000 VNĐ trên ShopeeFood cho thẻ tín dụng VIB", "01/06/2026 - 31/12/2026", "Tất cả chủ thẻ tín dụng VIB", "a1e6792e-a751-48d5-a14a-1046b1e8a20d/Shopee+banner+MAX+1+%281%29.jpg"],
+  ["giam-den-30-khi-thanh-toan-dich-vu-green-sm-bang-the-tin-dung-vib", "Giảm đến 30% khi thanh toán dịch vụ Green SM", "01/06/2026 - 31/12/2026", "Tất cả chủ thẻ tín dụng VIB", "10c09008-8c68-467b-b56f-068383a06c1b/1200x754+Green+SM.png"],
+  ["ngay-hoi-chi-tieu-the-tin-dung-2026", "Ngày hội chi tiêu thẻ tín dụng VIB 2026", "Ngày 20 hàng tháng, đến 20/12/2026", "Chủ thẻ tín dụng VIB", "53805559-abb2-4f95-8717-d9f31ec7e292/USAGE_ngay+hoi+chi+tieu_website_2.jpg"],
+  ["giam-1-000-000-vnd-cho-giao-dich-tra-gop-tai-lazada", "Giảm 1.000.000 VNĐ cho giao dịch trả góp tại Lazada", "01/08/2026 - 31/12/2026", "Chủ thẻ tín dụng VIB", "a9cac33e-39b1-44e7-8a83-8a627cbc1b42/image+%2835%29+1+%281%29.jpg"],
+  ["chuong-trinh-tra-gop-0-lai-suat-trong-nuoc-va-han-quoc-danh-cho-chu-the-tin-dung-vib-visa-vis", "Trả góp 0% lãi suất trong nước và Hàn Quốc (VIS)", "Từ 18/06/2026", "Chủ thẻ tín dụng VIB Visa", "f3f271e7-9f3b-4cd8-ba73-5d3239ca8a6d/MaxCard_Visa+installment_website+1+%281%29.jpg"],
+  ["tai-khoan-gan-ket-dac-quyen-the", "Tài khoản gắn kết, đặc quyền thẻ", "01/08/2026 - 31/07/2027", "Có tài khoản thanh toán và thẻ tín dụng VIB", "d2888a1d-82ca-47fd-87d6-72478d9c3300/banner+web+-+ca+linked+card+%281%29.jpeg"],
+];
+
+export const featured = featuredRows.map(([slug, title, period, audience, image]) => ({
+  title, period, audience, image: WCM + image, url: `${VIB}/vn/promotion/details/${slug}`,
+}));
+
+type M = [id: string, name: string, offer: string, end: string, category: string, image: string];
+const merchantRows: M[] = [
+  ["4415464", "Vietnam Airlines", "Hoàn 10%", "2026-10-31", "Du lịch", "20260814181409136_Screenshot_2026-08-14_170400.jpg"],
+  ["4415484", "Singapore Airlines", "-80 USD", "2026-10-31", "Du lịch", "20260814182345665_KV_SQVN.jpg"],
+  ["4395635", "Shopee", "-20%", "2026-12-31", "Mua sắm", "20250227175359470_banner_shopee.png"],
+  ["4417190", "M.O.I Cosmetics", "-50.000 VNĐ", "2027-03-31", "Mua sắm", "20261016154332675_Screenshot_2026-10-16_152417.jpg"],
+  ["4414159", "ShopeeFood", "-50.000 VNĐ", "2026-12-31", "Ẩm thực", "20260529180013707_banner_111_(1).png"],
+  ["4408196", "Watsons", "-15%", "2026-12-31", "Mua sắm", "20260930155445791_watsons_kv.jpg"],
+  ["4389324", "Six Senses Ninh Vân Bay", "-25%", "2026-12-31", "Du lịch", "20241128182619713_six_senses.jpg"],
+  ["4390525", "Panasonic", "-30%", "2026-12-31", "Mua sắm", "20250108193617838_20241209134441472_banner_Panasonic_batcheditor_fotor.jpg"],
+  ["4336939", "Pullman Phú Quốc", "-40%", "2026-12-20", "Du lịch", "20240725161931837_pullman_2.jpeg"],
+  ["4242741", "Bếp Thái Koh Yam", "-10%", "2026-12-31", "Ẩm thực", "20251128183621975_mâm_món_kohyam_tách_nền_(1).png"],
+  ["4412696", "La Maison Wine Dining", "Đi 4 tính 3", "2026-10-31", "Ẩm thực", "20260423144049022_Banner_La_1_(1).png"],
+  ["4397749", "Nha khoa Parkway", "-50%", "2027-12-31", "Sức khỏe", "20250423120217891_Banner_Parkway.jpg"],
+  ["4246601", "Qatar Airways", "-10%", "2027-03-31", "Du lịch", "20220630092117834_Aircraft.png"],
+  ["4359901", "Legacy Yên Tử - MGallery", "-20%", "2026-12-31", "Du lịch", "20231017171639602_v2_(1)_(1).jpg"],
+  ["4417084", "Nhà hàng BARSON (Le Meridien Saigon)", "-20%", "2027-12-31", "Ẩm thực", "20261013102636458_barson_kv1.jpg"],
+  ["3395524", "Latest Recipe (Le Meridien Saigon)", "-20%", "2027-12-31", "Ẩm thực", "20261013102314228_lastest_kv1.jpg"],
+  ["4416985", "Royal Beachfront Villas & Spa Hoi An", "-15%", "2027-10-15", "Du lịch", "20261008110348548_wyndham_villas_kv.jpg"],
+  ["4416915", "Hotel Royal Hội An", "-15%", "2027-10-15", "Du lịch", "20261008105400697_hotel_royal_kv.jpg"],
+  ["4416904", "Wyndham Royal Beachfront Resort Hoi An", "-15%", "2027-10-15", "Du lịch", "20261008110035575_wyndham_resort_kv.jpg"],
+  ["4416693", "Khu vui chơi Lotty Friends", "-20%", "2027-03-31", "Giải trí", "20260930175231791_Image_34_under70KB.jpg"],
+  ["4416044", "Lotte World Aquarium Hà Nội", "-20%", "2027-03-31", "Giải trí", "20260918161539640_Image_(31)_i.jpg"],
+  ["4416491", "be", "-15%", "2026-12-31", "Di chuyển", "20260930173554086_be_VIB_MAX_under70KB.jpg"],
+  ["4381936", "Mioto - Thuê xe tự lái", "-200.000 VNĐ", "2026-12-31", "Di chuyển", "20240801110208194_hìnhminhhoạ_(1)_(1).jpg"],
+  ["4416402", "Điện Máy Chợ Lớn", "-500.000 VNĐ", "2026-10-31", "Mua sắm", "20260930160759569_dmcl_deal_500k.jpg"],
+  ["4416225", "Điện Máy Chợ Lớn", "-15%", "2026-12-31", "Mua sắm", "20260930155538031_dmcl_1_kv.jpg"],
+  ["4415600", "Casio Anh Khuê", "-500.000 VNĐ", "2027-07-31", "Mua sắm", "20260903111915702_GM-2100LXB-1A_(002).png"],
+  ["4414909", "Malaysia Airlines", "-13%", "2026-11-30", "Du lịch", "20260722160200688_KV_MLA_2.jpg"],
+  ["4414108", "Thẩm mỹ viện Ngọc Dung", "Miễn phí 1 dịch vụ", "2027-01-31", "Sức khỏe", "20260903160937741_Image_(20).jpg"],
+  ["4413381", "Socie Vietnam", "-30%", "2027-04-30", "Sức khỏe", "20260918155928760_Image_(30).jpg"],
+  ["4413244", "Alma Resort Cam Ranh", "-10%", "2027-04-01", "Du lịch", "20260505163650407_Alma_Resort_Cam_Ranh.jpg"],
+  ["4413100", "Spices Villa - Vietnamese Dining", "-15%", "2026-12-31", "Ẩm thực", "20260504171137177_BANNER_1_(1).png"],
+  ["4413087", "The New Gym", "Miễn phí gói tập", "2026-12-31", "Sức khỏe", "20260504161603861_Banner_The_New_Gym_(1).png"],
+  ["4413008", "LG Clinic", "-2.000.000 VNĐ", "2026-12-31", "Sức khỏe", "20260504154228405_lg_bnn.jpg"],
+  ["4412344", "Costamigo Phan Thiết", "-40%", "2026-12-31", "Du lịch", "20260406170332463_Costamigo_banner_400k_(1).png"],
+  ["4412292", "Japan Vietnam Health Bridge", "-30%", "2026-12-31", "Sức khỏe", "20260406165628396_Banner_JP_1_(1).png"],
+  ["4411427", "Helen care", "-20%", "2027-03-31", "Sức khỏe", "20260327143902380_Helen_care_banner_1_(1).png"],
+  ["4414170", "Reviv", "Ưu đãi", "2027-04-30", "Sức khỏe", "20260527172323204_logo_reviv.png"],
+  ["4408859", "Bảo Việt Insurance", "Ưu đãi", "2026-12-31", "Khác", "20260127115324413_bao_viet_ins.png"],
+  ["4403407", "Bắc Kim Thang", "-10%", "2027-09-30", "Ẩm thực", "20250930115003504_20250918135142773_BKT_Gioithieu_(1).jpg"],
+  ["4401970", "Pasteur Street Craft Beer", "-10%", "2027-12-31", "Ẩm thực", "20250903094733657_PSCB_Banner.jpeg"],
+  ["4401862", "VITA Clinic", "Quà tặng", "2027-12-31", "Sức khỏe", "20250828134253490_Banner_Vita.png"],
+  ["4400690", "CHI Pilates", "-20%", "2026-12-31", "Sức khỏe", "20250724155517784_Banner_Pilates.png"],
+  ["4362866", "La Bella Pilates", "-25%", "2026-12-31", "Sức khỏe", "20231120165602892_z4898220798155_8b6bd18e61dbb492d879a456fbc1fefa.jpg"],
+  ["4345738", "Menard Spa", "-30%", "2027-06-30", "Sức khỏe", "20230807093951426_572A0744_(1).jpg"],
+  ["4340631", "Nha Khoa Otis", "-50%", "2027-08-31", "Sức khỏe", "20230711171012534_z4507320570889_0459656af7191a5bbaa82d6ba239a6a7.jpg"],
+  ["4393378", "EVA Air", "-5%", "2026-12-31", "Du lịch", "20250121181242050_Phương_tiện_truyền_thông_(9)_batcheditor_fotor_batcheditor_fotor_batcheditor_fotor.jpg"],
+  ["4385217", "Marina Bay Sands Singapore", "Nâng hạng phòng", "2026-12-31", "Du lịch", "20241003144104050_Marina_Bay_Sands_-_Sunset_(from_One_Fullerton).jpg"],
+  ["4377491", "Trip.com", "-50%", "2026-12-31", "Du lịch", "20250919144108850_Banner_Trip_(1).png"],
+  ["4371237", "Booking.com", "Hoàn 10%", "2027-04-23", "Du lịch", "20240412105059774_jpeg-optimizer_BOOKING_1.jpg"],
+  ["4374771", "Boma Resort Nha Trang", "-15%", "2026-12-31", "Du lịch", "20240520105710186_pic_2.jpg"],
+  ["4360915", "Mercure Vũng Tàu", "-20%", "2026-10-31", "Du lịch", "20231027154627378_Mercure_2_(1).jpg"],
+  ["4360874", "ibis Styles Vũng Tàu", "-30%", "2026-10-31", "Du lịch", "20231027152849919_ibis_style_1_(1)_(1).jpg"],
+  ["4334099", "New World Phu Quoc Resort", "-15%", "2026-12-31", "Du lịch", "20230510185158771_z4333780137170_c276b8184f4a07aedccc3409583feae7.jpg"],
+  ["4244925", "Radisson Blu Resort Cam Ranh", "-15%", "2027-12-31", "Du lịch", "20261015141349356_radisson_kv.jpg"],
+  ["4409274", "Park Hyatt China", "-15%", "2026-10-30", "Du lịch", "20260203193227517_park_hyatt_banner_(1).png"],
+  ["4382678", "Palsaik Korean BBQ", "-20%", "2027-04-30", "Ẩm thực", "20240812101716344_banner_palsailk.jpg"],
+  ["4379062", "Chit Chat at the Café – Equatorial", "-15%", "2026-12-31", "Ẩm thực", "20240710115235467_e2copy2.jpg"],
+  ["4377924", "A Mà Kitchen", "-10%", "2027-06-30", "Ẩm thực", "20240628165617367_Pic_A_Mà_(2).jpg"],
+  ["4373573", "Hôtel des Arts Saigon", "-20%", "2026-12-31", "Ẩm thực", "20260515184711030_hotes_des_art_2_(1).png"],
+  ["4313740", "Paper & I café", "-10%", "2027-03-31", "Ẩm thực", "20220930093904340_DSC05697-2.jpg"],
+  ["4299662", "Matsuri Japanese Restaurant", "-20%", "2027-03-31", "Ẩm thực", "20241104164216124_Hình_mới_(1)_(1)_(1).jpg"],
+  ["4378872", "Di Động Việt", "-6.000.000 VNĐ", "2026-12-31", "Mua sắm", "20260918154651854_Image_(29)_i.jpg"],
+  ["4351941", "Electrolux", "-15%", "2026-12-31", "Mua sắm", "20240109094252944_Electrolux_-_web.jpg"],
+  ["4336123", "Hoayeuthuong.com", "-10%", "2027-06-14", "Mua sắm", "20230607185722656_HoaYeuThuong.jpg"],
+  ["4301171", "Potico.vn", "-20%", "2026-12-31", "Mua sắm", "20220621171338799_image_(3).jpg"],
+  ["4247227", "LG Electronics", "-50%", "2026-12-31", "Mua sắm", "20230925092838492_11111111_(1).jpg"],
+  ["4238956", "Galle Watch", "-12%", "2027-05-31", "Mua sắm", "20240930103912593_Galle_Watch_banner.png"],
+];
+
+export const merchants = merchantRows.map(([id, name, offer, end, category, image]) => ({
+  id, name, offer, category,
+  end: end.split("-").reverse().join("/"),
+  image: BANNER + encodeURI(image),
+  url: `${VIB}/vn/promotion/vib-world/detail?promotionId=${id}`,
+}));
+
+export const installment = {
+  count: 170,
+  url: `${VIB}/vn/promotion/tra-gop-khong-lai-suat`,
+};

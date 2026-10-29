@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import groups from "@/data/mcc.json";
 import { highlights, promos, tierRows, tiers } from "@/data/card";
 
@@ -49,7 +50,10 @@ export default function Home() {
               </details>
             ))}
           </div>
-          <a className="btn" href="#card">Xem quyền lợi thẻ ↓</a>
+          <div className="btn-row">
+            <a className="btn" href="#card">Xem quyền lợi thẻ ↓</a>
+            <Link className="btn alt" href="/uu-dai">Ưu đãi thẻ →</Link>
+          </div>
         </main>
         <div className="shapes" aria-hidden="true">
           <span className="s-circle" />
